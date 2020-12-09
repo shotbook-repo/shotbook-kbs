@@ -1,0 +1,19 @@
+.sidebar {
+	color: white;
+	width: 18rem;
+	height: 100vh;
+	background-color: #303e58;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	padding-top: 2rem;
+}
+
+ul {
+	text-align: start;
+	padding: 1rem 2rem 0;
+}
+
+li {
+	margin: 1rem 0;
+}
