@@ -1,0 +1,12 @@
+.date-title {
+	font-size: 32px;
+	font-weight: 600;
+	color: #515151;
+	padding: 0px;
+	margin: 0px;
+}
+
+select {
+	width: 171px;
+	margin-left: 1.2rem;
+}

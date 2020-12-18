@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './sidebar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 class Sidebar extends Component {
 	render() {
@@ -22,14 +23,30 @@ class Sidebar extends Component {
 						</div>
 					</div>
 					<ul className='list-none flex-grow'>
-						<li>Dashboard</li>
-						<li>Sport Centres</li>
-						<li>Shotbook User</li>
-						<li>KBS Facilities</li>
-						<li>Announcement</li>
-						<li>Event Management</li>
-						<li>Marketing Management</li>
-						<li>User Access</li>
+						<Link to='/dashboard'>
+							<li>Dashboard</li>
+						</Link>
+						<Link to='/sport_center'>
+							<li>Sport Centers</li>
+						</Link>
+						<Link to='/shotbook_user'>
+							<li>Shotbook User</li>
+						</Link>
+						<Link to='/facility'>
+							<li>KBS Facilities</li>
+						</Link>
+						<Link to='/announcement'>
+							<li>Announcement</li>
+						</Link>
+						<Link to='/event'>
+							<li>Event Management</li>
+						</Link>
+						<Link to='/marketing'>
+							<li>Marketing Management</li>
+						</Link>
+						<Link to='/user_access'>
+							<li>User Access</li>
+						</Link>
 					</ul>
 					<div className='p-4 flex items-center justify-between flex-none border-t-2'>
 						<p>Sign out</p>

@@ -1,0 +1,27 @@
+.date-title {
+	font-size: 32px;
+	font-weight: 600;
+	color: #515151;
+	padding: 0px;
+	margin: 0px;
+}
+
+select {
+	width: 150px;
+	margin-left: 1.2rem;
+}
+
+.filter-view {
+	display: flex;
+	--tw-border-opacity: 1;
+	border-color: rgba(156, 163, 175, var(--tw-border-opacity));
+	border-radius: 0.5rem;
+	--tw-bg-opacity: 1;
+	background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
+	border-width: 2px;
+	width: 217px;
+	height: 40px;
+	margin-left: auto;
+	align-items: center;
+	justify-content: space-evenly;
+}

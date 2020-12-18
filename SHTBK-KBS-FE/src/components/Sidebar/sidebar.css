@@ -6,14 +6,23 @@
 	text-align: center;
 	display: flex;
 	flex-direction: column;
-	padding-top: 2rem;
+	padding-top: 1.5rem;
+	position: sticky;
+	left: 0;
+	top: 0;
+	bottom: 0;
 }
 
 ul {
 	text-align: start;
-	padding: 1rem 2rem 0;
+	margin-top: 1.5rem;
 }
 
 li {
-	margin: 1rem 0;
+	padding: 0.6rem 2rem 0.6rem;
+}
+
+.sidebar li:hover {
+	background: #ddd;
+	color: black;
 }
