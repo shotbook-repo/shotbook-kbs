@@ -6,6 +6,8 @@ import { Link, useParams } from 'react-router-dom';
 import SingleFacilityTabBar from '../../../components/TabBar/SingleFacilityTabBar';
 import CalendarTabBar from '../../../components/TabBar/CalendarTabBar';
 import CalendarSection from '../CalendarSection';
+import { BasicTable } from "../../../components/TitleBar/Table";
+
 
 const SelectedFacilityPage = () => {
 	const [title, setTitle] = useState('Facility Name');
@@ -34,6 +36,9 @@ const SelectedFacilityPage = () => {
 				<SingleFacilityTabBar id={id} />
 				{/* <CalendarTabBar /> */}
 				<CalendarSection />
+				<br></br>
+				<BasicTable/>
+				
 			</div>
 		</>
 	);

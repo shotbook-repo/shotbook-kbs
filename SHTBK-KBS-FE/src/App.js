@@ -9,6 +9,7 @@ import UserAccessPage from './views/UserAccess';
 import AnnouncementPage from './views/AnnouncementPage';
 import ShotbookUserPage from './views/ShootbookUser';
 import SportCenterPage from './views/SportCenters';
+import equipmentsection from './views/FacilitiesPage/EquipmentSection';
 import SelectedFacilityPage from './views/FacilitiesPage/SelectedFacilityPage';
 
 function App() {
