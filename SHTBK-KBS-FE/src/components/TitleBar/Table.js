@@ -3,6 +3,8 @@ import { useTable } from 'react-table'
 import MOCK_DATA from '../MOCK_DATA.json'
 import { COLUMNS } from '../column'
 import '../table.css'
+import Modal from '../Cards/PopUpCard/index'
+
 
 export const BasicTable = () => {
   const columns = useMemo(() => COLUMNS, [])
@@ -22,6 +24,9 @@ export const BasicTable = () => {
 
   return (
     <>
+      <Modal 
+      text='Edit'
+      />
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map(headerGroup => (

@@ -35,7 +35,6 @@ const SelectedFacilityPage = () => {
 				</div>
 				<SingleFacilityTabBar id={id} />
 				{/* <CalendarTabBar /> */}
-				<CalendarSection />
 				<br></br>
 				<BasicTable/>
 				
