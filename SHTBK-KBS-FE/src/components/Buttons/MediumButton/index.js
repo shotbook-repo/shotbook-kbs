@@ -4,6 +4,7 @@ import './mediumbutton.css';
 const MediumButton = ({ text }) => {
 	return (
 		<>
+			
 			<button className='medium-button'>{text}</button>
 		</>
 	);

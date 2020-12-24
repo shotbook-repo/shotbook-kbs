@@ -8,6 +8,7 @@ import CalendarTabBar from '../../../components/TabBar/CalendarTabBar';
 import CalendarSection from '../CalendarSection';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MaintenanceRequestSection from '../MaintenanceRequestSection';
+import { BasicTable } from '../../../components/TitleBar/Table';
 
 const SelectedFacilityPage = () => {
 	// state= {}
@@ -59,6 +60,9 @@ const SelectedFacilityPage = () => {
 						</Route>
 					</Switch>
 				</Router> */}
+				{/* <CalendarTabBar /> */}
+				<br></br>
+				{/* <BasicTable/> */}
 			</div>
 		</>
 	);
