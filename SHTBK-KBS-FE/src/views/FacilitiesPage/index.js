@@ -1,12 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TitleBar from '../../components/TitleBar';
 import './facilitiespage.css';
-import data from '../../data';
-import MainFacilityCard from '../../components/Cards/MainFacilityCard';
 import FacilitiesTabBar from '../../components/TabBar/FacilitiesTabBar';
+import config from '../../configs/config.json';
+import MainVenueCard from '../../components/Cards/MainVenueCard';
+import data2 from '../../data';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+
+const url = config.API_URL + '/getVenues';
+const getData = () => fetch(url).then((res) => res.json());
 
 const FacilitiesPage = () => {
-	const [title, setTitle] = useState('KBS Facilities');
+	const [title, setTitle] = useState('KBS Venues');
+	const [data, setData] = useState();
+	// const { data } = useFetch(config.API_URL + '/getVenues');
+
+	useEffect(() => {
+		getData().then((receivedData) => setData(receivedData));
+		// fetch(url)
+		// 	.then((res) => res.json())
+		// 	.then((receivedData) => setData(receivedData));
+	}, []);
+
+	// console.log('URL', url);
+	// console.log(data);
+
 	return (
 		<>
 			<div className='body'>
@@ -16,36 +35,33 @@ const FacilitiesPage = () => {
 					<p className='column-title mr-40'>No of Employees</p>
 					<p className='column-title mr-40'>Status</p>
 				</div>
-				<List />
-				{/* <div className='maincard'>
-					<h1>Velodrom Nasional Malaysia</h1>
-					<div className='flex '>
-						<h1 className='mr-20'>120</h1>
-						<div class='status self-center'></div>
+				{data ? (
+					data.data.map((venue) => {
+						return <MainVenueCard key={venue.id} {...venue} />;
+					})
+				) : (
+					<div className='text-center mt-auto mb-auto'>
+						<FontAwesomeIcon
+							icon={faSpinner}
+							spin
+							color='#303e58'
+							size='2x'
+						/>
 					</div>
-				</div>
-				<div className='maincard'>
-					<h1 className='font-semibold'>KBS Gym</h1>
-					<div className='flex '>
-						<p className='mr-10 font-semibold'>RM32,000.00</p>
-						<p className='mr-10'>Pending Approval</p>
-						<FontAwesomeIcon icon={faEdit} />
-					</div>
-				</div> */}
+				)}
 			</div>
 		</>
 	);
 };
 
-const List = () => {
-	const [facilities, setFacilities] = useState(data);
-	return (
-		<>
-			{facilities.map((facility) => {
-				return <MainFacilityCard key={facility.id} {...facility} />;
-			})}
-		</>
-	);
-};
+// const List = ({ data }) => {
+// 	return (
+// 		<>
+// 			{data.data.map((venue) => {
+// 				return <MainVenueCard key={venue.id} {...venue} />;
+// 			})}
+// 		</>
+// 	);
+// };
 
 export default FacilitiesPage;

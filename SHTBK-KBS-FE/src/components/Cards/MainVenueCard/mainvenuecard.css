@@ -17,6 +17,7 @@
 		0 2px 4px -1px rgba(0, 0, 0, 0.06);
 	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
 		var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+	position: relative;
 }
 
 h1 {
@@ -40,4 +41,38 @@ h1 {
 	background-color: red;
 	border-radius: 50%;
 	display: inline-block;
+}
+
+.maincard .tooltip-facility {
+	visibility: hidden;
+	background-color: #fff;
+	color: #3a3a3a;
+	text-align: left;
+	border-radius: 6px;
+	padding: 5px 7px;
+	font-size: 12px;
+
+	/* Position the tooltip */
+	position: absolute;
+	z-index: 1;
+	bottom: 110%;
+	left: 50%;
+	margin-left: -60px;
+	border-color: #374151;
+	border-width: 2px;
+}
+
+.maincard .tooltip-facility::after {
+	content: '';
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: -5px;
+	border-width: 8px;
+	border-style: solid;
+	border-color: #374151 transparent transparent transparent;
+}
+
+.maincard:hover .tooltip-facility {
+	visibility: visible;
 }

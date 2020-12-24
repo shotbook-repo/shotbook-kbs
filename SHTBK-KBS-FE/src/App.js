@@ -27,12 +27,13 @@ function App() {
 						<Route path='/shotbook_user'>
 							<ShotbookUserPage />
 						</Route>
-						<Route exact path='/facility'>
+						<Route exact path='/venue'>
 							<FacilitiesPage />
 						</Route>
-						<Route path='/facility/:id'>
-							<SelectedFacilityPage />
-						</Route>
+						<Route
+							path='/venue/:id'
+							children={<SelectedFacilityPage />}
+						></Route>
 						<Route path='/announcement'>
 							<AnnouncementPage />
 						</Route>

@@ -6,23 +6,36 @@ import { Link, useParams } from 'react-router-dom';
 import SingleFacilityTabBar from '../../../components/TabBar/SingleFacilityTabBar';
 import CalendarTabBar from '../../../components/TabBar/CalendarTabBar';
 import CalendarSection from '../CalendarSection';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import MaintenanceRequestSection from '../MaintenanceRequestSection';
 
 const SelectedFacilityPage = () => {
+	// state= {}
 	const [title, setTitle] = useState('Facility Name');
+	const [sectionFlags, setSectionFlags] = useState({
+		calender: true,
+		maint_req: false,
+		plan_req: false,
+		equipment: false,
+		inventory: false,
+		employee: false,
+		report: false,
+	});
 	const { id } = useParams();
-	console.log('selected');
 
 	useEffect(() => {
-		const facility = data.find((facility) => facility.id === parseInt(id));
-		setTitle(facility.facility_name);
+		const venue = data.find((venue) => venue.id === parseInt(id));
+		setTitle(venue.name);
 	}, [id]);
+
+	console.log('section flag', sectionFlags);
 
 	return (
 		<>
 			<div className='body'>
 				<div className='flex'>
 					<div className='flex-1 self-center text-blue-400'>
-						<Link to='/facility' className='back-link'>
+						<Link to='/venue' className='back-link'>
 							Back
 						</Link>
 					</div>
@@ -32,8 +45,20 @@ const SelectedFacilityPage = () => {
 					<div className='flex-1'></div>
 				</div>
 				<SingleFacilityTabBar id={id} />
-				{/* <CalendarTabBar /> */}
-				<CalendarSection />
+
+				{sectionFlags.calender && <CalendarSection />}
+
+				{/* <CalendarSection /> */}
+				{/* <Router>
+					<Switch>
+						<Route path={`/facility/${id}/calendar`}>
+							<CalendarSection />
+						</Route>
+						<Route path={`/facility/${id}/maintenance_request`}>
+							<MaintenanceRequestSection />
+						</Route>
+					</Switch>
+				</Router> */}
 			</div>
 		</>
 	);
