@@ -1,8 +1,8 @@
 import React from 'react';
 import { BasicTable } from '../../../components/TitleBar/Table';
-import './reqmaintenance.css';
+import './inventorysection.css';
 
-const MaintenanceRequestSection = () => {
+const InventorySection = () => {
 	return (
 		<>
 			{/* <div className='mt-5'>test</div> */}
@@ -11,4 +11,4 @@ const MaintenanceRequestSection = () => {
 	);
 };
 
-export default MaintenanceRequestSection;
+export default InventorySection;

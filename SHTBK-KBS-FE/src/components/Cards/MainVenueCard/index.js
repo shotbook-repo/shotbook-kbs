@@ -35,10 +35,13 @@ const MainVenueCard = (props) => {
 						{status_icon}
 					</div>
 					<span className='tooltip-facility'>
-						{location_div}
+						<div>{location_div}</div>
 						<div>
 							{props.line_add_1}, {props.line_add_2}, {props.postal_code}
 						</div>
+						<div>Contact Person: {props.contact_person}</div>
+						<div>Contact No: {props.contact_no}</div>
+						<div>Email: {props.contact_email}</div>
 					</span>
 				</div>
 			</Link>

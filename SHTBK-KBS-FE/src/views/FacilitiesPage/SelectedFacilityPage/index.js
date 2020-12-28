@@ -9,6 +9,7 @@ import CalendarSection from '../CalendarSection';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MaintenanceRequestSection from '../MaintenanceRequestSection';
 import { BasicTable } from '../../../components/TitleBar/Table';
+import InventorySection from '../InventorySection';
 
 const SelectedFacilityPage = () => {
 	// state= {}
@@ -23,6 +24,10 @@ const SelectedFacilityPage = () => {
 		report: false,
 	});
 	const { id } = useParams();
+
+	function handleSection(newSectionFlags) {
+		setSectionFlags(newSectionFlags);
+	}
 
 	useEffect(() => {
 		const venue = data.find((venue) => venue.id === parseInt(id));
@@ -45,24 +50,23 @@ const SelectedFacilityPage = () => {
 					</div>
 					<div className='flex-1'></div>
 				</div>
-				<SingleFacilityTabBar id={id} />
+				<SingleFacilityTabBar
+					id={id}
+					sectionFlags={sectionFlags}
+					handleSection={handleSection}
+				/>
 
 				{sectionFlags.calender && <CalendarSection />}
+				{sectionFlags.maint_req && <MaintenanceRequestSection />}
+				{sectionFlags.inventory && <InventorySection />}
+				{/* {sectionFlags.plan_req && <CalendarSection />}
+				{sectionFlags.equipment && <CalendarSection />}
+				{sectionFlags.inventory && <CalendarSection />}
+				{sectionFlags.employee && <CalendarSection />}
+				{sectionFlags.report && <CalendarSection />} */}
 
-				{/* <CalendarSection /> */}
-				{/* <Router>
-					<Switch>
-						<Route path={`/facility/${id}/calendar`}>
-							<CalendarSection />
-						</Route>
-						<Route path={`/facility/${id}/maintenance_request`}>
-							<MaintenanceRequestSection />
-						</Route>
-					</Switch>
-				</Router> */}
-				{/* <CalendarTabBar /> */}
-				<br></br>
-				{/* <BasicTable/> */}
+				{/* <br></br>
+				<BasicTable /> */}
 			</div>
 		</>
 	);
