@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import './facilitiestabbar.css';
 import 'antd/lib/switch/style/index.css';
+// import { useDispatch } from 'react-redux';
 
 Modal.setAppElement('#root');
 const customStyles = {
@@ -25,15 +26,88 @@ const customStyles = {
 };
 
 const FacilitiesTabBar = () => {
+	// const dispatch = useDispatch();
 	const [modalIsOpen, setModalIsOpen] = useState(false);
-	const [isMondayOpen, setIsMondayOpen] = useState(false);
-	const [isTuesdayOpen, setIsTuesdayOpen] = useState(false);
-	const [isWednesdayOpen, setIsWednesdayOpen] = useState(false);
-	const [isThursdayOpen, setIsThursdayOpen] = useState(false);
-	const [isFridayOpen, setIsFridayOpen] = useState(false);
-	const [isSaturdayOpen, setIsSaturdayOpen] = useState(false);
-	const [isSundayOpen, setIsSundayOpen] = useState(false);
+	// const [isMondayOpen, setIsMondayOpen] = useState(false);
+	// const [isTuesdayOpen, setIsTuesdayOpen] = useState(false);
+	// const [isWednesdayOpen, setIsWednesdayOpen] = useState(false);
+	// const [isThursdayOpen, setIsThursdayOpen] = useState(false);
+	// const [isFridayOpen, setIsFridayOpen] = useState(false);
+	// const [isSaturdayOpen, setIsSaturdayOpen] = useState(false);
+	// const [isSundayOpen, setIsSundayOpen] = useState(false);
+	const [formState, setFormState] = useState({
+		venueName: '',
+		employeeNo: '',
+		address1: '',
+		address2: '',
+		postal: '',
+		city: '',
+		state: '',
+		telNo: '',
+		conPerson: '',
+		conNo: '',
+		conEmail: '',
+	});
 
+	const handleForm = (e) => {
+		e.preventDefault();
+
+		dispatch({
+			type: 'ADD_VENUE',
+			payload: {
+				name: formState.venueName ? formState.venueName : null,
+				employee_no: formState.employeeNo ? formState.employeeNo : null,
+				status: 'Active',
+				line_add_1: formState.address1 ? formState.address1 : null,
+				line_add_2: formState.address2 ? formState.address2 : null,
+				postal_code: formState.postal ? formState.postal : null,
+				city: formState.city ? formState.city : null,
+				state: formState.state ? formState.state : null,
+				tel_no: formState.telNo ? formState.telNo : null,
+				contact_person: formState.conPerson ? formState.conPerson : null,
+				contact_no: formState.conNo ? formState.conNo : null,
+				contact_email: formState.conEmail ? formState.conEmail : null,
+			},
+		});
+
+		const requestOptions = {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				name: formState.venueName ? formState.venueName : null,
+				employee_no: formState.employeeNo ? formState.employeeNo : null,
+				status: 'Active',
+				line_add_1: formState.address1 ? formState.address1 : null,
+				line_add_2: formState.address2 ? formState.address2 : null,
+				postal_code: formState.postal ? formState.postal : null,
+				city: formState.city ? formState.city : null,
+				state: formState.state ? formState.state : null,
+				tel_no: formState.telNo ? formState.telNo : null,
+				contact_person: formState.conPerson ? formState.conPerson : null,
+				contact_no: formState.conNo ? formState.conNo : null,
+				contact_email: formState.conEmail ? formState.conEmail : null,
+			}),
+		};
+		console.log('request body:', requestOptions.body);
+		fetch('http://localhost:3001/insertVenues', requestOptions)
+			.then(async (response) => {
+				const data = await response.json();
+
+				// check for error response
+				if (!response.ok) {
+					// get error message from body or default to response status
+					const error = (data && data.message) || response.status;
+					return Promise.reject(error);
+				}
+				console.log('After send request response data:', data);
+				window.location.reload();
+				// this.setState({ postId: data.id });
+			})
+			.catch((error) => {
+				// this.setState({ errorMessage: error.toString() });
+				console.error('There was an error!', error);
+			});
+	};
 	return (
 		<>
 			<div className='flex flex-row justify-between border-2 shadow-md rounded-md align-middle p-2 mt-5'>
@@ -41,7 +115,7 @@ const FacilitiesTabBar = () => {
 					className='medium-button mr-24'
 					onClick={() => setModalIsOpen(true)}
 				>
-					Add Facilities
+					Add Venues
 				</button>
 				<SearchField />
 
@@ -61,57 +135,99 @@ const FacilitiesTabBar = () => {
 						/>
 
 						<div className='text-center text-xl mb-10 font-bold'>
-							Add Facility
+							Add Venue
 						</div>
-						<form className='form flex pb-14'>
+						<form className='form flex pb-14' onSubmit={handleForm}>
 							<div className='flex-1 mr-3'>
 								<div className='w-full flex'>
-									<div className='w-1/3'>Venue</div>
+									<div className='w-1/3'>Venue name</div>
 									<input
 										name='ven-name-input'
-										className='border-2 h-8 rounded-sm w-2/3'
+										className='border-2 h-8 rounded-sm w-2/3 p-2'
+										placeholder='Venue name'
+										onChange={(e) =>
+											setFormState({
+												...formState,
+												venueName: e.target.value,
+											})
+										}
 									></input>
 								</div>
 								<div className='w-full flex mt-3'>
 									<div className='w-1/3'>Address</div>
 									<input
 										name='address-l1-input'
-										className='border-2 h-8 rounded-sm w-2/3'
+										className='border-2 h-8 rounded-sm w-2/3 p-2'
+										placeholder='Address Line 1'
+										onChange={(e) =>
+											setFormState({
+												...formState,
+												address1: e.target.value,
+											})
+										}
 									></input>
 								</div>
 								<div className='w-full flex mt-3'>
 									<div className='w-1/3'></div>
 									<input
 										name='address-l2-input'
-										className='border-2 h-8 rounded-sm w-2/3'
+										className='border-2 h-8 rounded-sm w-2/3 p-2'
+										placeholder='Address Line 2'
+										onChange={(e) =>
+											setFormState({
+												...formState,
+												address2: e.target.value,
+											})
+										}
 									></input>
 								</div>
 								<div className='w-full flex mt-3'>
 									<div className='w-1/3'>Postal</div>
 									<input
 										name='postal-input'
-										className='border-2 h-8 rounded-sm w-1/3'
+										className='border-2 h-8 rounded-sm w-1/3 p-2'
+										placeholder='Postal code'
+										onChange={(e) =>
+											setFormState({
+												...formState,
+												postal: e.target.value,
+											})
+										}
 									></input>
 								</div>
 								<div className='w-full flex mt-3'>
 									<div className='w-1/3'>City</div>
 									<input
 										name='city-input'
-										className='border-2 h-8 rounded-sm w-1/3'
+										className='border-2 h-8 rounded-sm w-1/3 p-2'
+										placeholder='City'
+										onChange={(e) =>
+											setFormState({
+												...formState,
+												city: e.target.value,
+											})
+										}
 									></input>
 								</div>
 								<div className='w-full flex mt-3'>
 									<div className='w-1/3'>State</div>
 									<input
 										name='state-input'
-										className='border-2 h-8 rounded-sm w-1/3'
+										className='border-2 h-8 rounded-sm w-1/3 p-2'
+										placeholder='State'
+										onChange={(e) =>
+											setFormState({
+												...formState,
+												state: e.target.value,
+											})
+										}
 									></input>
 								</div>
-								<div className='w-full flex mt-14'>
+								{/* <div className='w-full flex mt-14'>
 									<div className='w-1/3'>Facility name</div>
 									<input
 										name='fac-name-input'
-										className='border-2 h-8 rounded-sm w-2/3'
+										className='border-2 h-8 rounded-sm w-2/3 p-2'
 									></input>
 								</div>
 								<div className='w-full flex mt-3'>
@@ -210,28 +326,49 @@ const FacilitiesTabBar = () => {
 											<input type='time'></input>
 										</div>
 									</div>
-								</div>
+								</div> */}
 							</div>
 							<div className='flex-1 ml-3'>
 								<div className='w-full flex'>
-									<div className='w-1/3'>Tel No</div>
+									<div className='w-1/3'>Tel no</div>
 									<input
 										name='tel-input'
-										className='border-2 h-8 rounded-sm w-2/3'
+										className='border-2 h-8 rounded-sm w-2/3 p-2'
+										placeholder='Tel no'
+										onChange={(e) =>
+											setFormState({
+												...formState,
+												telNo: e.target.value,
+											})
+										}
 									></input>
 								</div>
 								<div className='w-full flex mt-3'>
 									<div className='w-1/3'>Contact person</div>
 									<input
 										name='con-person-input'
-										className='border-2 h-8 rounded-sm w-2/3'
+										className='border-2 h-8 rounded-sm w-2/3 p-2'
+										placeholder='Contact person'
+										onChange={(e) =>
+											setFormState({
+												...formState,
+												conPerson: e.target.value,
+											})
+										}
 									></input>
 								</div>
 								<div className='w-full flex mt-3'>
 									<div className='w-1/3'>Contact no</div>
 									<input
 										name='con-no-input'
-										className='border-2 h-8 rounded-sm w-2/3'
+										className='border-2 h-8 rounded-sm w-2/3 p-2'
+										placeholder='Contact no'
+										onChange={(e) =>
+											setFormState({
+												...formState,
+												conNo: e.target.value,
+											})
+										}
 									></input>
 								</div>
 								<div className='w-full flex mt-3'>
@@ -239,14 +376,35 @@ const FacilitiesTabBar = () => {
 									<input
 										type='email'
 										name='email-input'
-										className='border-2 h-8 rounded-sm w-2/3'
+										className='border-2 h-8 rounded-sm w-2/3 p-2'
+										placeholder='Email address'
+										onChange={(e) =>
+											setFormState({
+												...formState,
+												conEmail: e.target.value,
+											})
+										}
 									></input>
 								</div>
-								<div className='w-full flex mt-36'>
+								<div className='w-full flex mt-3'>
+									<div className='w-1/3'>Number of employee(s)</div>
+									<input
+										name='emp-no-input'
+										className='border-2 h-8 rounded-sm w-2/3 p-2'
+										placeholder='Number of employee(s)'
+										onChange={(e) =>
+											setFormState({
+												...formState,
+												employeeNo: e.target.value,
+											})
+										}
+									></input>
+								</div>
+								{/* <div className='w-full flex mt-36'>
 									<div className='w-1/3'>Type of facility</div>
 									<select
 										name='facility-type-input'
-										className='border-2 h-8 rounded-sm w-2/3'
+										className='border-2 h-8 rounded-sm w-2/3 p-2'
 									>
 										<option value=''>Subvenue</option>
 										<option value=''>Inventory</option>
@@ -257,23 +415,23 @@ const FacilitiesTabBar = () => {
 									<div className='w-1/3'>Services</div>
 									<input
 										name='service-1-input'
-										className='border-2 h-8 rounded-sm w-2/3'
+										className='border-2 h-8 rounded-sm w-2/3 p-2'
 									></input>
 								</div>
 								<div className='w-full flex mt-3'>
 									<div className='w-1/3'></div>
 									<input
 										name='service-2-input'
-										className='border-2 h-8 rounded-sm w-2/3'
+										className='border-2 h-8 rounded-sm w-2/3 p-2'
 									></input>
 								</div>
 								<div className='w-full flex mt-3'>
 									<div className='w-1/3'></div>
 									<input
 										name='service-3-input'
-										className='border-2 h-8 rounded-sm w-2/3'
+										className='border-2 h-8 rounded-sm w-2/3 p-2'
 									></input>
-								</div>
+								</div> */}
 							</div>
 							<div className='text-center flex absolute bottom-4 justify-center w-full'>
 								<button type='submit' className='small-button'>

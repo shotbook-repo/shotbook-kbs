@@ -33,7 +33,7 @@ class Sidebar extends Component {
 							<li>Shotbook User</li>
 						</Link>
 						<Link to='/venue'>
-							<li>KBS Venues</li>
+							<li>Facilities Management</li>
 						</Link>
 						<Link to='/announcement'>
 							<li>Announcement</li>

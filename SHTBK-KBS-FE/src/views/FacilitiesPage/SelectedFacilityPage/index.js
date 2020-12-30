@@ -30,6 +30,7 @@ const SelectedFacilityPage = () => {
 	}
 
 	useEffect(() => {
+		document.title = 'Facilities & Asset Management';
 		const venue = data.find((venue) => venue.id === parseInt(id));
 		setTitle(venue.name);
 	}, [id]);
