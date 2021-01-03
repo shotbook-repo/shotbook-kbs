@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import './facilitiestabbar.css';
 import 'antd/lib/switch/style/index.css';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 Modal.setAppElement('#root');
 const customStyles = {
@@ -26,7 +26,7 @@ const customStyles = {
 };
 
 const FacilitiesTabBar = () => {
-	// const dispatch = useDispatch();
+	const dispatch = useDispatch();
 	const [modalIsOpen, setModalIsOpen] = useState(false);
 	// const [isMondayOpen, setIsMondayOpen] = useState(false);
 	// const [isTuesdayOpen, setIsTuesdayOpen] = useState(false);
