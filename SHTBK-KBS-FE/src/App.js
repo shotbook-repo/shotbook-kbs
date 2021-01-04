@@ -11,6 +11,7 @@ import ShotbookUserPage from './views/ShootbookUser';
 import SportCenterPage from './views/SportCenters';
 import equipmentsection from './views/FacilitiesPage/EquipmentSection';
 import SelectedFacilityPage from './views/FacilitiesPage/SelectedFacilityPage';
+import LoginPage from './views/LoginPage/index.js';
 
 function App() {
 	return (
@@ -46,6 +47,9 @@ function App() {
 						</Route>
 						<Route path='/user_access'>
 							<UserAccessPage />
+						</Route>
+						<Route path='/login'>
+							<LoginPage />
 						</Route>
 					</Switch>
 				</div>
