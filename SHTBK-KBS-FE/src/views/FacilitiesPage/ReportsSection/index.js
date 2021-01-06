@@ -1,8 +1,7 @@
 import React from 'react';
-import { BasicTable } from '../../../components/TitleBar/Table';
-import './reqmaintenance.css';
+import './reportsection.css';
 
-const MaintenanceRequestSection = () => {
+const ReportSection = () => {
 	return (
 		<>
 			{/* <div className='mt-5'>test</div> */}
@@ -13,4 +12,4 @@ const MaintenanceRequestSection = () => {
 	);
 };
 
-export default MaintenanceRequestSection;
+export default ReportSection;

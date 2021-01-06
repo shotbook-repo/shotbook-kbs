@@ -11,6 +11,7 @@ import ShotbookUserPage from './views/ShootbookUser';
 import SportCenterPage from './views/SportCenters';
 import equipmentsection from './views/FacilitiesPage/EquipmentSection';
 import SelectedFacilityPage from './views/FacilitiesPage/SelectedFacilityPage';
+import FacilityListingPage from './views/FacilitiesPage/FacilityListingPage';
 
 function App() {
 	return (
@@ -28,13 +29,16 @@ function App() {
 						<Route path='/shotbook_user'>
 							<ShotbookUserPage />
 						</Route>
-						<Route exact path='/venue'>
+						<Route exact path='/facility'>
 							<FacilitiesPage />
 						</Route>
 						<Route
-							path='/venue/:id'
-							children={<SelectedFacilityPage />}
+							path='/facility/:id'
+							children={<FacilityListingPage />}
 						></Route>
+						{/* <Route exact path='/facility/:id/overview'>
+							<FacilityListingPage />
+						</Route> */}
 						<Route path='/announcement'>
 							<AnnouncementPage />
 						</Route>

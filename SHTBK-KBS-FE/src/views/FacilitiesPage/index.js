@@ -2,58 +2,60 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import TitleBar from '../../components/TitleBar';
 import './facilitiespage.css';
-import FacilitiesTabBar from '../../components/TabBar/FacilitiesTabBar';
 import config from '../../configs/config.json';
 import MainVenueCard from '../../components/Cards/MainVenueCard';
 import data2 from '../../data';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import VenuesTabBar from '../../components/TabBar/VenuesTabBar';
+import { useFetch } from '../../components/CustomHooks/useFetch';
 
-const url = config.API_URL + '/getVenues';
-// const getData = () => fetch(url).then((res) => res.json());
-const getData = () =>
-	fetch(url, {
-		method: 'POST',
-		headers: { 'Content-type': 'application/json' },
-		body: JSON.stringify({ flag: 'all', venue_id: null }),
-	}).then((res) => res.json());
+// const getData = () =>
+// 	fetch(url, {
+// 		method: 'POST',
+// 		headers: { 'Content-type': 'application/json' },
+// 		body: JSON.stringify({ flag: 'all', venue_id: null }),
+// 	}).then((res) => res.json());
 
 const FacilitiesPage = () => {
 	const [title, setTitle] = useState('Facilities Management');
-	const [data, setData] = useState();
-	// const { data } = useFetch(config.API_URL + '/getVenues');
+	const url = `${config.API_URL}/getVenues`;
+	const [requestBody, setRequestBody] = useState({
+		flag: 'all',
+		venue_id: null,
+	});
+	const { responseData } = useFetch(url, requestBody);
 
 	// TEST REDUCER
 	// const venues = useSelector((state) => state.venues);
 	// console.log('state', venues);
 
-	useEffect(() => {
-		getData()
-			.then((receivedData) => {
-				console.log({ receivedData });
-				setData(receivedData);
-			})
-			.catch((err) => console.log(err));
-		// fetch(url)
-		// 	.then((res) => res.json())
-		// 	.then((receivedData) => setData(receivedData));
-	}, []);
+	// useEffect(() => {
+	// 	getData()
+	// 		.then((receivedData) => {
+	// 			console.log({ receivedData });
+	// 			setData(receivedData);
+	// 		})
+	// 		.catch((err) => console.log(err));
+	// }, []);
 
-	// console.log('URL', url);
-	// console.log(data);
+	// useEffect(() => {
+	// 	console.log('resData in useEffect', responseData);
+	// 	setData(responseData);
+	// }, [responseData]);
 
 	return (
 		<>
 			<div className='body'>
 				<TitleBar title={title} />
-				<FacilitiesTabBar />
+				<VenuesTabBar />
 				<div className='flex justify-end mt-4'>
 					<p className='column-title mr-auto ml-7'>KBS Venues</p>
 					<p className='column-title mr-40'>No of Employees</p>
 					<p className='column-title mr-40'>Status</p>
 				</div>
-				{data ? (
-					data.data.map((venue) => {
+				{responseData.data ? (
+					responseData.data.map((venue) => {
 						return <MainVenueCard key={venue.id} {...venue} />;
 					})
 				) : (
@@ -70,15 +72,5 @@ const FacilitiesPage = () => {
 		</>
 	);
 };
-
-// const List = ({ data }) => {
-// 	return (
-// 		<>
-// 			{data.data.map((venue) => {
-// 				return <MainVenueCard key={venue.id} {...venue} />;
-// 			})}
-// 		</>
-// 	);
-// };
 
 export default FacilitiesPage;

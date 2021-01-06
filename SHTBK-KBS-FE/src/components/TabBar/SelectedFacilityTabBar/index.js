@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './singlefacilitytabbar.css';
+import './selectedfacilitytabbar.css';
 
-const SingleFacilityTabBar = ({ id, sectionFlags, handleSection }) => {
+const SelectedFacilityTabBar = ({ id, sectionFlags, handleSection }) => {
 	function setAllFlagsToFalse() {
 		return Object.assign(
 			...Object.keys(sectionFlags).map((k) => ({ [k]: false }))
@@ -12,7 +12,7 @@ const SingleFacilityTabBar = ({ id, sectionFlags, handleSection }) => {
 		<>
 			<div className='flex flex-row border shadow-md rounded-md p-4 mt-5 facility-items'>
 				<Link
-					to={`/venue/${id}/calendar`}
+					to={`/facility/${id}/calendar`}
 					className='ml-2'
 					onClick={() => {
 						const newSectionFlags = setAllFlagsToFalse();
@@ -23,7 +23,7 @@ const SingleFacilityTabBar = ({ id, sectionFlags, handleSection }) => {
 				</Link>
 				<div className='divider'>|</div>
 				<Link
-					to={`/venue/${id}/maintenance_request`}
+					to={`/facility/${id}/maintenance_request`}
 					onClick={() => {
 						const newSectionFlags = setAllFlagsToFalse();
 						handleSection({ ...newSectionFlags, maint_req: true });
@@ -33,7 +33,7 @@ const SingleFacilityTabBar = ({ id, sectionFlags, handleSection }) => {
 				</Link>
 				<div className='divider'>|</div>
 				<Link
-					to={`/venue/${id}/planned_maintenance`}
+					to={`/facility/${id}/planned_maintenance`}
 					onClick={() => {
 						const newSectionFlags = setAllFlagsToFalse();
 						handleSection({ ...newSectionFlags, plan_req: true });
@@ -43,7 +43,7 @@ const SingleFacilityTabBar = ({ id, sectionFlags, handleSection }) => {
 				</Link>
 				<div className='divider'>|</div>
 				<Link
-					to={`/venue/${id}/equipment`}
+					to={`/facility/${id}/equipment`}
 					onClick={() => {
 						const newSectionFlags = setAllFlagsToFalse();
 						handleSection({ ...newSectionFlags, equipment: true });
@@ -53,7 +53,7 @@ const SingleFacilityTabBar = ({ id, sectionFlags, handleSection }) => {
 				</Link>
 				<div className='divider'>|</div>
 				<Link
-					to={`/venue/${id}/inventory`}
+					to={`/facility/${id}/inventory`}
 					onClick={() => {
 						const newSectionFlags = setAllFlagsToFalse();
 						handleSection({ ...newSectionFlags, inventory: true });
@@ -63,7 +63,7 @@ const SingleFacilityTabBar = ({ id, sectionFlags, handleSection }) => {
 				</Link>
 				<div className='divider'>|</div>
 				<Link
-					to={`/venue/${id}/employee`}
+					to={`/facility/${id}/employee`}
 					onClick={() => {
 						const newSectionFlags = setAllFlagsToFalse();
 						handleSection({ ...newSectionFlags, employee: true });
@@ -73,7 +73,7 @@ const SingleFacilityTabBar = ({ id, sectionFlags, handleSection }) => {
 				</Link>
 				<div className='divider'>|</div>
 				<Link
-					to={`/venue/${id}/reports`}
+					to={`/facility/${id}/reports`}
 					onClick={() => {
 						const newSectionFlags = setAllFlagsToFalse();
 						handleSection({ ...newSectionFlags, report: true });
@@ -87,4 +87,4 @@ const SingleFacilityTabBar = ({ id, sectionFlags, handleSection }) => {
 	);
 };
 
-export default SingleFacilityTabBar;
+export default SelectedFacilityTabBar;

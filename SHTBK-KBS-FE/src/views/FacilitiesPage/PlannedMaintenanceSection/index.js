@@ -1,8 +1,7 @@
 import React from 'react';
-import { BasicTable } from '../../../components/TitleBar/Table';
-import './reqmaintenance.css';
+import './planmaintenance.css';
 
-const MaintenanceRequestSection = () => {
+const PlannedMaintenanceSection = () => {
 	return (
 		<>
 			{/* <div className='mt-5'>test</div> */}
@@ -13,4 +12,4 @@ const MaintenanceRequestSection = () => {
 	);
 };
 
-export default MaintenanceRequestSection;
+export default PlannedMaintenanceSection;

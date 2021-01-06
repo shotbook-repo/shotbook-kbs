@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './mainvenuecard.css';
+import './maineventcard.css';
 
-const MainVenueCard = (props) => {
+const MainEventCard = (props) => {
 	let status_icon;
 	let location_div;
 	if (props.status === 'Active') {
@@ -27,7 +27,6 @@ const MainVenueCard = (props) => {
 	}
 	return (
 		<>
-			{/* <Link to={`/facility/${props.id}`}> */}
 			<Link to={`/facility/${props.id}`}>
 				<div className='maincard'>
 					<h1>{props.name}</h1>
@@ -50,4 +49,4 @@ const MainVenueCard = (props) => {
 	);
 };
 
-export default MainVenueCard;
+export default MainEventCard;

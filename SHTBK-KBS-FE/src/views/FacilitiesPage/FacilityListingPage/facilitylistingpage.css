@@ -1,0 +1,31 @@
+.body {
+	width: 100%;
+	padding: 1rem;
+}
+
+.back-link {
+	font-size: 20px;
+	color: #32b5f9;
+}
+
+.fl-section-title {
+	color: #515151;
+	font-size: 24px;
+	font-weight: bold;
+	margin-left: 0.75rem;
+}
+
+.col-title {
+	color: #515151;
+	font-weight: bold;
+}
+
+.content-card {
+	border: 20rem black;
+	padding: 1.5rem 2rem;
+	--tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+		0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+		var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+	position: relative;
+}

@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import { Switch } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-import './facilitiestabbar.css';
+import './venuestabbar.css';
 import 'antd/lib/switch/style/index.css';
 // import { useDispatch } from 'react-redux';
 
@@ -25,7 +25,7 @@ const customStyles = {
 	},
 };
 
-const FacilitiesTabBar = () => {
+const VenuesTabBar = () => {
 	// const dispatch = useDispatch();
 	const [modalIsOpen, setModalIsOpen] = useState(false);
 	// const [isMondayOpen, setIsMondayOpen] = useState(false);
@@ -52,24 +52,6 @@ const FacilitiesTabBar = () => {
 	const handleForm = (e) => {
 		e.preventDefault();
 
-		dispatch({
-			type: 'ADD_VENUE',
-			payload: {
-				name: formState.venueName ? formState.venueName : null,
-				employee_no: formState.employeeNo ? formState.employeeNo : null,
-				status: 'Active',
-				line_add_1: formState.address1 ? formState.address1 : null,
-				line_add_2: formState.address2 ? formState.address2 : null,
-				postal_code: formState.postal ? formState.postal : null,
-				city: formState.city ? formState.city : null,
-				state: formState.state ? formState.state : null,
-				tel_no: formState.telNo ? formState.telNo : null,
-				contact_person: formState.conPerson ? formState.conPerson : null,
-				contact_no: formState.conNo ? formState.conNo : null,
-				contact_email: formState.conEmail ? formState.conEmail : null,
-			},
-		});
-
 		const requestOptions = {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
@@ -89,7 +71,7 @@ const FacilitiesTabBar = () => {
 			}),
 		};
 		console.log('request body:', requestOptions.body);
-		fetch('http://localhost:3001/insertVenues', requestOptions)
+		fetch('http://localhost:3001/insertVenue', requestOptions)
 			.then(async (response) => {
 				const data = await response.json();
 
@@ -115,7 +97,7 @@ const FacilitiesTabBar = () => {
 					className='medium-button mr-24'
 					onClick={() => setModalIsOpen(true)}
 				>
-					Add Venues
+					Add New Venue
 				</button>
 				<SearchField />
 
@@ -439,7 +421,6 @@ const FacilitiesTabBar = () => {
 								</button>
 							</div>
 						</form>
-						{/* <button onClick={() => setModalIsOpen(false)}>close</button> */}
 					</div>
 				</Modal>
 			</div>
@@ -447,4 +428,4 @@ const FacilitiesTabBar = () => {
 	);
 };
 
-export default FacilitiesTabBar;
+export default VenuesTabBar;

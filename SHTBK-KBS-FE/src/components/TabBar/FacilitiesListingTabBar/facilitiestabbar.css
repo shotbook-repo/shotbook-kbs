@@ -1,0 +1,18 @@
+.divider {
+	margin-left: 0.9rem;
+	margin-right: 0.9rem;
+}
+
+a:hover {
+	color: #51c0fa;
+}
+
+.facility-items a {
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.item-tab-active {
+	color: #32b5f9;
+	font-weight: 700;
+}

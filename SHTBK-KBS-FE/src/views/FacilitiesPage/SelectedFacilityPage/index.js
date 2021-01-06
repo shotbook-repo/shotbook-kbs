@@ -3,7 +3,7 @@ import TitleBar from '../../../components/TitleBar';
 import './selectedfacilitypage.css';
 import data from '../../../data';
 import { Link, useParams } from 'react-router-dom';
-import SingleFacilityTabBar from '../../../components/TabBar/SingleFacilityTabBar';
+import SelectedFacilityTabBar from '../../../components/TabBar/SelectedFacilityTabBar';
 import CalendarTabBar from '../../../components/TabBar/CalendarTabBar';
 import CalendarSection from '../CalendarSection';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -42,7 +42,7 @@ const SelectedFacilityPage = () => {
 			<div className='body'>
 				<div className='flex'>
 					<div className='flex-1 self-center text-blue-400'>
-						<Link to='/venue' className='back-link'>
+						<Link to={`/facility/${id}/overview`} className='back-link'>
 							Back
 						</Link>
 					</div>
@@ -51,7 +51,7 @@ const SelectedFacilityPage = () => {
 					</div>
 					<div className='flex-1'></div>
 				</div>
-				<SingleFacilityTabBar
+				<SelectedFacilityTabBar
 					id={id}
 					sectionFlags={sectionFlags}
 					handleSection={handleSection}
