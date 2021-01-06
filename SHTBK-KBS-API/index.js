@@ -49,7 +49,7 @@ app.post('/getVenues', async (req, res) => {
 	}
 });
 
-app.post('/insertVenues', async (req, res) => {
+app.post('/insertVenue', async (req, res) => {
 	let response;
 	let rawString = '';
 
@@ -93,8 +93,8 @@ app.post('/insertVenues', async (req, res) => {
 	} catch (err) {
 		response = {
 			statusCode: 500,
-			message: 'Unsuccessful',
-			transaction: 'INSERT',
+			message: 'Error',
+			transaction: 'INSERT VENUE',
 			data: req.body,
 		};
 
@@ -103,20 +103,167 @@ app.post('/insertVenues', async (req, res) => {
 	}
 });
 
-app.get('/getUser', async (req, res) => {
+app.post('/insertfacility', async (req, res) => {
+	let response;
+	let rawStringFacility = '';
+	let rawStringBusinessHour = '';
+
+	try {
+		//	DESTRUCTURE REQUEST BODY
+		let {
+			venue_id,
+			facilityType,
+			facilityName,
+			category,
+			location_at_venue,
+			manufacturer,
+			model,
+			serial_no,
+			quantity,
+			isMondayOpen,
+			isTuesdayOpen,
+			isWednesdayOpen,
+			isThursdayOpen,
+			isFridayOpen,
+			isSaturdayOpen,
+			isSundayOpen,
+			mondayStartTime,
+			mondayCloseTime,
+			tuesdayStartTime,
+			tuesdayCloseTime,
+			wednesdayStartTime,
+			wednesdayCloseTime,
+			thursdayStartTime,
+			thursdayCloseTime,
+			fridayStartTime,
+			fridayCloseTime,
+			saturdayStartTime,
+			saturdayCloseTime,
+			sundayStartTime,
+			sundayCloseTime,
+		} = req.body;
+
+		console.log(req.body);
+		mondayStartTime === ''
+			? (mondayStartTime = null)
+			: (mondayStartTime = `'${mondayStartTime}'`);
+		mondayCloseTime === ''
+			? (mondayCloseTime = null)
+			: (mondayCloseTime = `'${mondayCloseTime}'`);
+		tuesdayStartTime === ''
+			? (tuesdayStartTime = null)
+			: (tuesdayStartTime = `'${tuesdayStartTime}'`);
+		tuesdayCloseTime === ''
+			? (tuesdayCloseTime = null)
+			: (tuesdayCloseTime = `'${tuesdayCloseTime}'`);
+		wednesdayStartTime === ''
+			? (wednesdayStartTime = null)
+			: (wednesdayStartTime = `'${wednesdayStartTime}'`);
+		wednesdayCloseTime === ''
+			? (wednesdayCloseTime = null)
+			: (wednesdayCloseTime = `'${wednesdayCloseTime}'`);
+		thursdayStartTime === ''
+			? (thursdayStartTime = null)
+			: (thursdayStartTime = `'${thursdayStartTime}'`);
+		thursdayCloseTime === ''
+			? (thursdayCloseTime = null)
+			: (thursdayCloseTime = `'${thursdayCloseTime}'`);
+		fridayStartTime === ''
+			? (fridayStartTime = null)
+			: (fridayStartTime = `'${fridayStartTime}'`);
+		fridayCloseTime === ''
+			? (fridayCloseTime = null)
+			: (fridayCloseTime = `'${fridayCloseTime}'`);
+		saturdayStartTime === ''
+			? (saturdayStartTime = null)
+			: (saturdayStartTime = `'${saturdayStartTime}'`);
+		saturdayCloseTime === ''
+			? (saturdayCloseTime = null)
+			: (saturdayCloseTime = `'${saturdayCloseTime}'`);
+		sundayStartTime === ''
+			? (sundayStartTime = null)
+			: (sundayStartTime = `'${sundayStartTime}'`);
+		sundayCloseTime === ''
+			? (sundayCloseTime = null)
+			: (sundayCloseTime = `'${sundayCloseTime}'`);
+		console.log({ facilityType });
+
+		if (facilityType === 'Subvenue') {
+			rawStringFacility = 'INSERT INTO ';
+			rawStringFacility +=
+				'kbs.facilities("type", "name", quantity, venue_id) ';
+			rawStringFacility += `VALUES('${facilityType}', '${facilityName}', ${quantity}, ${venue_id}`;
+			rawStringFacility += ')';
+
+			rawStringBusinessHour += 'INSERT INTO ';
+			rawStringBusinessHour +=
+				'kbs.business_hour(is_mon_open, mon_start, mon_end, is_tue_open, tue_start, tue_end, is_wed_open, wed_start, wed_end, is_thu_open, thu_start, thu_end, is_fri_open, fri_start, fri_end, is_sat_open, sat_start, sat_end, is_sun_open, sun_start, sun_end, venue_id) ';
+			rawStringBusinessHour += `VALUES(${isMondayOpen}, ${mondayStartTime}, ${mondayCloseTime}, ${isTuesdayOpen}, ${tuesdayStartTime}, ${tuesdayCloseTime}, ${isWednesdayOpen}, ${wednesdayStartTime}, ${wednesdayCloseTime}, ${isThursdayOpen}, ${thursdayStartTime}, ${thursdayCloseTime}, ${isFridayOpen}, ${fridayStartTime}, ${fridayCloseTime}, ${isSaturdayOpen}, ${saturdayStartTime}, ${saturdayCloseTime}, ${isSundayOpen}, ${sundayStartTime}, ${sundayCloseTime}, ${venue_id} `;
+			rawStringBusinessHour += ')';
+
+			console.log('Raw String: ', rawStringFacility);
+			console.log('Raw String: ', rawStringBusinessHour);
+			let businessHour = await dbconnection.query(rawStringBusinessHour);
+			console.log({ businessHour });
+		} else if (facilityType === 'Equipment' || facilityType === 'Inventory') {
+			rawStringFacility = 'INSERT INTO ';
+			rawStringFacility +=
+				'kbs.facilities("type", "name", category, location_at_venue, manufacturer, model, serial_no, quantity, sport_id, venue_id) ';
+			rawStringFacility += `VALUES('${facilityType}', '${facilityName}', '${category}', '${location_at_venue}', '${manufacturer}', '${model}', '${serial_no}', ${quantity}, ${null}, ${venue_id}`;
+			rawStringFacility += ')';
+
+			console.log('Raw String: ', rawStringFacility);
+		}
+
+		//	EXECUTE QUERIES ON DB
+		let facility = await dbconnection.query(rawStringFacility);
+
+		response = {
+			statusCode: 200,
+			message: 'Successful',
+			transaction: facility.command,
+			rows_inserted: facility.rowCount,
+			data: facility.rows,
+		};
+
+		return res.json(response);
+	} catch (err) {
+		response = {
+			statusCode: 500,
+			message: 'Error',
+			transaction: 'INSERT VENUE',
+			data: req.body,
+		};
+
+		console.error(err.message);
+		return res.json(response);
+	}
+});
+
+app.post('/getUser', async (req, res) => {
 	let response;
 	let rawString = '';
 
 	try {
 		//	DESTRUCTURE REQUEST BODY
-		let { flag, user_id } = req.body;
+		let { flag } = req.body;
 
-		if (flag === 'single') {
-			rawString += 'SELECT * ';
-			rawString += 'FROM kbs.users ';
-			rawString += 'WHERE id = ' + user_id;
-		} else if (flag === 'all') {
-			rawString += 'SELECT * FROM kbs.users';
+		switch (flag) {
+			case 'guest_single':
+				rawString += 'SELECT * ';
+				rawString += 'FROM kbs.users ';
+				rawString += 'WHERE id = ' + user_id;
+				break;
+			case 'guest_all':
+				rawString += 'SELECT * FROM kbs.users';
+				break;
+			case 'employee_all':
+				rawString += 'SELECT * ';
+				rawString += 'FROM kbs.users ';
+				rawString += 'WHERE venue_id = ' + req.body.venue_id;
+				break;
+			default:
+				break;
 		}
 
 		//	EXECUTE QUERIES ON DB
@@ -138,27 +285,43 @@ app.get('/getUser', async (req, res) => {
 	}
 });
 
-app.get('/getFacilities', async (req, res) => {
+app.post('/getFacilities', async (req, res) => {
 	let response;
-	let rawString = '';
+	let rawStringFacilities = '';
+	let rawStringVenues = '';
 
 	try {
 		//	DESTRUCTURE REQUEST BODY
-		// let { flag } = req.body;
+		let { venue_id } = req.body;
 
-		rawString = 'SELECT * FROM kbs.facilities';
+		rawStringFacilities += 'SELECT * FROM kbs.facilities ';
+		rawStringFacilities += `WHERE venue_id=${venue_id}`;
+
+		rawStringVenues += 'SELECT * FROM kbs.venues ';
+		rawStringVenues += `WHERE id=${venue_id}`;
 
 		//	EXECUTE QUERIES ON DB
-		let facilities = await dbconnection.query(rawString);
+		let facilities = await dbconnection.query(rawStringFacilities);
+		let venues = await dbconnection.query(rawStringVenues);
 
 		response = {
 			statusCode: 200,
 			message: 'Successful',
-			data: facilities.rows,
+			data: {
+				venue: venues.rows,
+				facility: facilities.rows,
+			},
 		};
 
 		return res.json(response);
 	} catch (err) {
+		response = {
+			statusCode: 500,
+			message: 'Error',
+			transaction: 'GET VENUE FACILITIES',
+			data: req.body,
+		};
 		console.error(err.message);
+		return res.json(response);
 	}
 });
