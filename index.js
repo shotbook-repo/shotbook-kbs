@@ -2,18 +2,19 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const dbconnection = require('./dbconnection');
+let port = process.env.PORT || 3000;
 
 // For local dev ONLY
 app.use(cors());
 
 //	CONNECT TO PORT
-app.listen(3001);
+app.listen(port);
 
 //  REQUEST BODY
 app.use(express.json());
 
 //  DEFINE ROUTES
-app.get('/', async (req, res) => {
+app.get('/index', async (req, res) => {
 	res.send('Shotbook KBS APIs');
 });
 
