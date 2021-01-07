@@ -9,6 +9,10 @@ const data = [
 		postal_code: 55100,
 		city: 'Kuala Lumpur',
 		state: 'Kuala Lumpur',
+		tel_no: 'Kuala Lumpur',
+		contact_person: 'Kuala Lumpur',
+		contact_no: 'Kuala Lumpur',
+		contact_email: 'Kuala Lumpur',
 	},
 	{
 		id: 2,
