@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import './venuestabbar.css';
 import 'antd/lib/switch/style/index.css';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 Modal.setAppElement('#root');
 const customStyles = {

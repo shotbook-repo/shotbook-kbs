@@ -2,20 +2,25 @@ import React, { useState } from 'react';
 import MediumButton from '../../Buttons/MediumButton';
 import SearchField from '../../SearchField';
 import './eventstabbar.css';
-import monthsData from '../../../months';
 
-const EventsTabBar = () => {
+const EventsTabBar = ({ selectedMonth, updateMonth, months }) => {
 	const [buttonText, setButtonText] = useState('Add Events');
-	const [selectedMonth, setSelectedMonth] = useState('January');
-	const [months, setMonths] = useState(monthsData);
 	return (
 		<>
 			<div className='flex flex-row border shadow-md rounded-md p-2 mt-5 w-full'>
 				<div className='flex-1 '>
 					<MediumButton text={buttonText} />
-					<select>
+					<select
+						onChange={(e) => {
+							updateMonth(e.target.value);
+						}}
+					>
 						{months.map((month) => {
-							return <option>{month.month_name}</option>;
+							return (
+								<option value={month.month_name}>
+									{month.month_name}
+								</option>
+							);
 						})}
 					</select>
 				</div>

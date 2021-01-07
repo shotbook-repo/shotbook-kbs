@@ -1,0 +1,51 @@
+#button1{
+    display: inline-block;
+    color: white;
+	background-color: #32b5f9;
+	height: 44px;
+	width: 207px;
+	padding: 0.6rem 1rem 2rem;
+	border-radius: 0.375rem;
+	transition-property: background-color, border-color, color, fill, stroke,
+		opacity, box-shadow, transform;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 500ms;
+    margin-right: 5px;
+	display:inline-block;
+}
+#button2{
+    color: white;
+	background-color: #32b5f9;
+	height: 44px;
+	width: 207px;
+	padding: 0.6rem 1rem 2rem;
+	border-radius: 0.375rem;
+	transition-property: background-color, border-color, color, fill, stroke,
+		opacity, box-shadow, transform;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 500ms;
+    margin-left: 5px;
+
+	display:inline-block;
+
+}
+.button1:hover {
+	background-color: #0090d1;
+}
+
+.button1:focus {
+	outline: 2px solid transparent;
+	outline-offset: 2px;
+}
+
+.button2hover {
+	background-color: #0090d1;
+}
+
+.button2:focus {
+	outline: 2px solid transparent;
+	outline-offset: 2px;
+}
+#container{
+    text-align: right;
+}

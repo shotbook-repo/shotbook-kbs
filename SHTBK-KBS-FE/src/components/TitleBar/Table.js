@@ -9,6 +9,7 @@ import Modal from '../Cards/PopUpCard/index'
 export const BasicTable = () => {
   const columns = useMemo(() => COLUMNS, [])
   const data = useMemo(() => MOCK_DATA, [])
+  
 
   const {
     getTableProps,
@@ -16,6 +17,7 @@ export const BasicTable = () => {
     headerGroups,
     footerGroups,
     rows,
+    text,
     prepareRow
   } = useTable({
     columns,
@@ -25,7 +27,7 @@ export const BasicTable = () => {
   return (
     <>
       <Modal 
-      text='Edit'
+      text={text}
       />
       <table {...getTableProps()}>
         <thead>
