@@ -1,5 +1,5 @@
 {
-	"name": "shtbk-kbs-getuser",
+	"name": "shtbk-kbs-api",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
