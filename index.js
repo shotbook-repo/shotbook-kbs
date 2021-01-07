@@ -13,7 +13,7 @@ app.listen(3001);
 app.use(express.json());
 
 //  DEFINE ROUTES
-app.post('/', async (req, res) => {
+app.get('/', async (req, res) => {
 	res.send('Shotbook KBS APIs');
 });
 
