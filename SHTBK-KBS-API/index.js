@@ -13,6 +13,92 @@ app.listen(3001);
 app.use(express.json());
 
 //  DEFINE ROUTES
+app.post('/getUser', async (req, res) => {
+	let response;
+	let rawString = '';
+
+	try {
+		//	DESTRUCTURE REQUEST BODY
+		let { flag } = req.body;
+
+		switch (flag) {
+			case 'guest_single':
+				rawString += 'SELECT * ';
+				rawString += 'FROM kbs.users ';
+				rawString += 'WHERE id = ' + user_id;
+				break;
+			case 'guest_all':
+				rawString += 'SELECT * FROM kbs.users';
+				break;
+			case 'employee_all':
+				rawString += 'SELECT * ';
+				rawString += 'FROM kbs.users ';
+				rawString += 'WHERE venue_id = ' + req.body.venue_id;
+				break;
+			default:
+				break;
+		}
+
+		//	EXECUTE QUERIES ON DB
+		let users = await dbconnection.query(rawString);
+
+		response = {
+			statusCode: 200,
+			message: 'Successful',
+			data: users.rows,
+		};
+
+		return res.json(response);
+
+		// console.log('[Request Body] ', req.body);
+		// console.log('[Query] ', rawString);
+		// console.log('[Result] ', users.rows);
+	} catch (err) {
+		console.error(err.message);
+	}
+});
+
+app.post('/getFacilities', async (req, res) => {
+	let response;
+	let rawStringFacilities = '';
+	let rawStringVenues = '';
+
+	try {
+		//	DESTRUCTURE REQUEST BODY
+		let { venue_id } = req.body;
+
+		rawStringFacilities += 'SELECT * FROM kbs.facilities ';
+		rawStringFacilities += `WHERE venue_id=${venue_id}`;
+
+		rawStringVenues += 'SELECT * FROM kbs.venues ';
+		rawStringVenues += `WHERE id=${venue_id}`;
+
+		//	EXECUTE QUERIES ON DB
+		let facilities = await dbconnection.query(rawStringFacilities);
+		let venues = await dbconnection.query(rawStringVenues);
+
+		response = {
+			statusCode: 200,
+			message: 'Successful',
+			data: {
+				venue: venues.rows,
+				facility: facilities.rows,
+			},
+		};
+
+		return res.json(response);
+	} catch (err) {
+		response = {
+			statusCode: 500,
+			message: 'Error',
+			transaction: 'GET VENUE FACILITIES',
+			data: req.body,
+		};
+		console.error(err.message);
+		return res.json(response);
+	}
+});
+
 app.post('/getVenues', async (req, res) => {
 	let response;
 	let rawString = '';
@@ -37,6 +123,43 @@ app.post('/getVenues', async (req, res) => {
 			statusCode: 200,
 			message: 'Successful',
 			data: venues.rows,
+		};
+
+		return res.json(response);
+
+		// console.log('[Request Body] ', req.body);
+		// console.log('[Query] ', rawString);
+		// console.log('[Result] ', users.rows);
+	} catch (err) {
+		console.error(err.message);
+	}
+});
+
+app.post('/getEvents', async (req, res) => {
+	let response;
+	let rawString = '';
+
+	try {
+		//	DESTRUCTURE REQUEST BODY
+		let { flag } = req.body;
+		if (flag === 'single') {
+			rawString += 'SELECT * FROM ';
+			rawString += 'kbs.events ';
+			rawString += 'WHERE id = ' + venue_id;
+		} else if (flag === 'all') {
+			rawString += 'SELECT * FROM kbs.events';
+		}
+		console.log(req);
+
+		// rawString += 'SELECT * FROM kbs.venues';
+
+		//	EXECUTE QUERIES ON DB
+		let events = await dbconnection.query(rawString);
+
+		response = {
+			statusCode: 200,
+			message: 'Successful',
+			data: events.rows,
 		};
 
 		return res.json(response);
@@ -235,92 +358,6 @@ app.post('/insertfacility', async (req, res) => {
 			data: req.body,
 		};
 
-		console.error(err.message);
-		return res.json(response);
-	}
-});
-
-app.post('/getUser', async (req, res) => {
-	let response;
-	let rawString = '';
-
-	try {
-		//	DESTRUCTURE REQUEST BODY
-		let { flag } = req.body;
-
-		switch (flag) {
-			case 'guest_single':
-				rawString += 'SELECT * ';
-				rawString += 'FROM kbs.users ';
-				rawString += 'WHERE id = ' + user_id;
-				break;
-			case 'guest_all':
-				rawString += 'SELECT * FROM kbs.users';
-				break;
-			case 'employee_all':
-				rawString += 'SELECT * ';
-				rawString += 'FROM kbs.users ';
-				rawString += 'WHERE venue_id = ' + req.body.venue_id;
-				break;
-			default:
-				break;
-		}
-
-		//	EXECUTE QUERIES ON DB
-		let users = await dbconnection.query(rawString);
-
-		response = {
-			statusCode: 200,
-			message: 'Successful',
-			data: users.rows,
-		};
-
-		return res.json(response);
-
-		// console.log('[Request Body] ', req.body);
-		// console.log('[Query] ', rawString);
-		// console.log('[Result] ', users.rows);
-	} catch (err) {
-		console.error(err.message);
-	}
-});
-
-app.post('/getFacilities', async (req, res) => {
-	let response;
-	let rawStringFacilities = '';
-	let rawStringVenues = '';
-
-	try {
-		//	DESTRUCTURE REQUEST BODY
-		let { venue_id } = req.body;
-
-		rawStringFacilities += 'SELECT * FROM kbs.facilities ';
-		rawStringFacilities += `WHERE venue_id=${venue_id}`;
-
-		rawStringVenues += 'SELECT * FROM kbs.venues ';
-		rawStringVenues += `WHERE id=${venue_id}`;
-
-		//	EXECUTE QUERIES ON DB
-		let facilities = await dbconnection.query(rawStringFacilities);
-		let venues = await dbconnection.query(rawStringVenues);
-
-		response = {
-			statusCode: 200,
-			message: 'Successful',
-			data: {
-				venue: venues.rows,
-				facility: facilities.rows,
-			},
-		};
-
-		return res.json(response);
-	} catch (err) {
-		response = {
-			statusCode: 500,
-			message: 'Error',
-			transaction: 'GET VENUE FACILITIES',
-			data: req.body,
-		};
 		console.error(err.message);
 		return res.json(response);
 	}
