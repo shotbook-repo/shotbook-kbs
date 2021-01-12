@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import MainEventCard from '../../components/Cards/MainEventCard';
 import EventsTabBar from '../../components/TabBar/EventsTabBar';
 import TitleBar from '../../components/TitleBar';
@@ -11,20 +11,44 @@ import monthsData from '../../months';
 import './eventpage.css';
 
 const EventPage = () => {
+	const [responseData, setResponseData] = useState({});
 	const [title, setTitle] = useState('Events');
 	const [selectedMonth, setSelectedMonth] = useState('January');
-	const [monthNo, setMonthNo] = useState(0);
+	const [selectedMonthNo, setSelectedMonthNo] = useState(1);
 	const [months, setMonths] = useState(monthsData);
 	const url = config.API_URL + '/getEvents';
-	const [requestBody, setRequestBody] = useState({
-		flag: 'all',
-	});
-	const { responseData } = useFetch(url, requestBody);
+	// const { responseData } = useFetch(url, requestBody);
 
-	const updateMonth = (month) => {
+	const updateMonth = (month, month_no) => {
 		setSelectedMonth(month);
-		// console.log('month', month_no);
+		setSelectedMonthNo(month_no);
 	};
+
+	const fetchData = useCallback(
+		async (month) => {
+			const requestOptions = {
+				method: 'POST',
+				headers: { 'Content-type': 'application/json' },
+				body: JSON.stringify({
+					flag: 'all',
+					month: month,
+				}),
+			};
+
+			const response = await fetch(url, requestOptions);
+			const data = await response.json();
+			setResponseData(data);
+		},
+		[url]
+	);
+
+	useEffect(() => {
+		fetchData(selectedMonthNo);
+	}, [url, fetchData, selectedMonthNo, selectedMonth]);
+
+	useEffect(() => {
+		fetchData(selectedMonthNo);
+	}, []);
 
 	return (
 		<>
@@ -36,6 +60,15 @@ const EventPage = () => {
 					updateMonth={updateMonth}
 					months={months}
 				/>
+				<div
+					className='w-full flex px-8 font-bold mt-5'
+					style={{ color: '#3A3A3A' }}
+				>
+					<div className='w-5/12'>Name</div>
+					<div className='w-5/12'>Facility</div>
+					<div className='w-1/12 mr-4'>Date</div>
+					<div className='w-1/12 text-right'>Details</div>
+				</div>
 
 				{responseData.data ? (
 					responseData.data.length > 0 ? (
@@ -43,10 +76,10 @@ const EventPage = () => {
 							return <MainEventCard key={event.id} event={event} />;
 						})
 					) : (
-						<div className='text-center my-2'>No current events.</div>
+						<div className='text-center my-auto'>No current events.</div>
 					)
 				) : (
-					<div className='text-center my-2'>Fetching data...</div>
+					<div className='text-center my-auto'>Fetching data...</div>
 				)}
 			</div>
 		</>

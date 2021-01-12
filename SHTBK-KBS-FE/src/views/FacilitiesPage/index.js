@@ -18,7 +18,7 @@ import { useFetch } from '../../components/CustomHooks/useFetch';
 // 	}).then((res) => res.json());
 
 const FacilitiesPage = () => {
-	const [title, setTitle] = useState('Facilities Management');
+	const [title, setTitle] = useState('KBS Facilities');
 	const url = `${config.API_URL}/getVenues`;
 	const [requestBody, setRequestBody] = useState({
 		flag: 'all',

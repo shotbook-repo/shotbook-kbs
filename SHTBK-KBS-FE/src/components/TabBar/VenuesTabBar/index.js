@@ -28,13 +28,6 @@ const customStyles = {
 const VenuesTabBar = () => {
 	// const dispatch = useDispatch();
 	const [modalIsOpen, setModalIsOpen] = useState(false);
-	// const [isMondayOpen, setIsMondayOpen] = useState(false);
-	// const [isTuesdayOpen, setIsTuesdayOpen] = useState(false);
-	// const [isWednesdayOpen, setIsWednesdayOpen] = useState(false);
-	// const [isThursdayOpen, setIsThursdayOpen] = useState(false);
-	// const [isFridayOpen, setIsFridayOpen] = useState(false);
-	// const [isSaturdayOpen, setIsSaturdayOpen] = useState(false);
-	// const [isSundayOpen, setIsSundayOpen] = useState(false);
 	const [formState, setFormState] = useState({
 		venueName: '',
 		employeeNo: '',

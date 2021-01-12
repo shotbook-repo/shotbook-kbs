@@ -12,12 +12,15 @@ const EventsTabBar = ({ selectedMonth, updateMonth, months }) => {
 					<MediumButton text={buttonText} />
 					<select
 						onChange={(e) => {
-							updateMonth(e.target.value);
+							updateMonth(
+								e.target.options[e.target.selectedIndex].text,
+								e.target.value
+							);
 						}}
 					>
 						{months.map((month) => {
 							return (
-								<option value={month.month_name}>
+								<option key={month.month_no} value={month.month_no}>
 									{month.month_name}
 								</option>
 							);
