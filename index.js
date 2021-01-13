@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const dbconnection = require('./dbconnection');
-let port = process.env.PORT || 3000;
+let port = process.env.PORT || 3001;
 
 // For local dev ONLY
 app.use(cors());
@@ -146,16 +146,20 @@ app.post('/getEvents', async (req, res) => {
 
 	try {
 		//	DESTRUCTURE REQUEST BODY
-		let { flag } = req.body;
+		let { flag, month } = req.body;
+		// let noOfMonth = await getMonth(month);
+
 		if (flag === 'single') {
 			rawString += 'SELECT * FROM ';
 			rawString += 'kbs.events ';
 			rawString += 'WHERE id = ' + venue_id;
 		} else if (flag === 'all') {
-			rawString += 'SELECT * FROM kbs.events';
+			rawString += 'SELECT * ';
+			rawString += 'FROM kbs.events ';
+			rawString += 'WHERE EXTRACT(MONTH FROM start_date) = ' + month;
 		}
-		console.log(req);
 
+		console.log(rawString);
 		// rawString += 'SELECT * FROM kbs.venues';
 
 		//	EXECUTE QUERIES ON DB
@@ -168,10 +172,6 @@ app.post('/getEvents', async (req, res) => {
 		};
 
 		return res.json(response);
-
-		// console.log('[Request Body] ', req.body);
-		// console.log('[Query] ', rawString);
-		// console.log('[Result] ', users.rows);
 	} catch (err) {
 		console.error(err.message);
 	}
@@ -367,3 +367,34 @@ app.post('/insertfacility', async (req, res) => {
 		return res.json(response);
 	}
 });
+
+let getMonth = async (month) => {
+	switch (month) {
+		case 'January':
+			return 1;
+		case 'February':
+			return 2;
+		case 'March':
+			return 3;
+		case 'April':
+			return 4;
+		case 'May':
+			return 5;
+		case 'June':
+			return 6;
+		case 'July':
+			return 7;
+		case 'August':
+			return 8;
+		case 'September':
+			return 9;
+		case 'October':
+			return 10;
+		case 'November':
+			return 11;
+		case 'December':
+			return 12;
+		default:
+			break;
+	}
+};
