@@ -15,7 +15,7 @@ app.use(express.json());
 
 //  DEFINE ROUTES
 app.get('/index', async (req, res) => {
-	res.send('Shotbook KBS APIs');
+	res.send('Shotbook KBS APIs - Staging');
 });
 
 app.post('/getUser', async (req, res) => {
