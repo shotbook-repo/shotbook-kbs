@@ -12,6 +12,7 @@ app.listen(port);
 
 //  REQUEST BODY
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 //  DEFINE ROUTES
 app.get('/index', async (req, res) => {
