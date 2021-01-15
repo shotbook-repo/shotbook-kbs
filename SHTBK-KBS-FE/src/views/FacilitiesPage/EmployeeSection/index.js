@@ -3,7 +3,7 @@ import config from '../../../configs/config.json';
 import { useFetch } from '../../../components/CustomHooks/useFetch';
 
 const EmployeeSection = ({ venue }) => {
-	const url = `${config.API_URL}/getUser`;
+	const url = `${config.API_URL}/getUsers`;
 	const [requestBody, setRequestBody] = useState({
 		flag: 'employee_all',
 		venue_id: venue,

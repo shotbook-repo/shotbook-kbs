@@ -5,7 +5,6 @@ import TitleBar from '../../components/TitleBar';
 import mockEvents from '../../mock-event';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { useFetch } from '../../components/CustomHooks/useFetch';
 import config from '../../configs/config.json';
 import monthsData from '../../months';
 import './eventpage.css';
@@ -16,8 +15,8 @@ const EventPage = () => {
 	const [selectedMonth, setSelectedMonth] = useState('January');
 	const [selectedMonthNo, setSelectedMonthNo] = useState(1);
 	const [months, setMonths] = useState(monthsData);
+
 	const url = config.API_URL + '/getEvents';
-	// const { responseData } = useFetch(url, requestBody);
 
 	const updateMonth = (month, month_no) => {
 		setSelectedMonth(month);
@@ -30,7 +29,7 @@ const EventPage = () => {
 				method: 'POST',
 				headers: { 'Content-type': 'application/json' },
 				body: JSON.stringify({
-					flag: 'all',
+					flag: 'byMonth',
 					month: month,
 				}),
 			};
@@ -52,7 +51,6 @@ const EventPage = () => {
 
 	return (
 		<>
-			{console.log(responseData)}
 			<div className='body'>
 				<TitleBar title={title} />
 				<EventsTabBar
@@ -73,7 +71,14 @@ const EventPage = () => {
 				{responseData.data ? (
 					responseData.data.length > 0 ? (
 						responseData.data.map((event) => {
-							return <MainEventCard key={event.id} event={event} />;
+							return (
+								<MainEventCard
+									key={event.event.id}
+									event={event.event}
+									venue={event.venue}
+									facility={event.facility}
+								/>
+							);
 						})
 					) : (
 						<div className='text-center my-auto'>No current events.</div>

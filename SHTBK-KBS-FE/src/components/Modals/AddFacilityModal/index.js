@@ -4,9 +4,7 @@ import { Switch } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import Select from 'react-select';
-import './addfacilitymodal.css';
 import 'antd/lib/switch/style/index.css';
-import config from '../../../configs/config.json';
 
 Modal.setAppElement('#root');
 const AddFacilityModal = ({

@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
 import MediumButton from '../../Buttons/MediumButton';
+import AddEventModal from '../../Modals/AddEventModal';
 import SearchField from '../../SearchField';
 import './eventstabbar.css';
 
 const EventsTabBar = ({ selectedMonth, updateMonth, months }) => {
-	const [buttonText, setButtonText] = useState('Add Events');
+	const [modalIsOpen, setModalIsOpen] = useState(false);
+	const setModalState = (state) => {
+		setModalIsOpen(state);
+	};
 	return (
 		<>
 			<div className='flex flex-row border shadow-md rounded-md p-2 mt-5 w-full'>
 				<div className='flex-1 '>
-					<MediumButton text={buttonText} />
+					<button
+						className='ml-auto medium-button'
+						onClick={() => setModalIsOpen(true)}
+					>
+						Create Event
+					</button>
 					<select
 						onChange={(e) => {
 							updateMonth(
@@ -28,11 +37,15 @@ const EventsTabBar = ({ selectedMonth, updateMonth, months }) => {
 					</select>
 				</div>
 				<div className='flex-1 text-center'>
-					<div className='date-title'>{selectedMonth} 2020</div>
+					<div className='date-title'>{selectedMonth} 2021</div>
 				</div>
 				<div className='flex-1 text-right'>
 					<SearchField />
 				</div>
+				<AddEventModal
+					modalIsOpen={modalIsOpen}
+					setModalState={setModalState}
+				/>
 			</div>
 		</>
 	);

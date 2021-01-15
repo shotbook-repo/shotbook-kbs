@@ -13,6 +13,7 @@ import equipmentsection from './views/FacilitiesPage/EquipmentSection';
 import SelectedFacilityPage from './views/FacilitiesPage/SelectedFacilityPage';
 import FacilityListingPage from './views/FacilitiesPage/FacilityListingPage';
 import LoginPage from './views/LoginPage/index.js';
+import CalendarPage from './views/CalendarPage';
 
 function App() {
 	return (
@@ -54,6 +55,9 @@ function App() {
 						</Route>
 						<Route path='/login'>
 							<LoginPage />
+						</Route>
+						<Route path='/calendar'>
+							<CalendarPage />
 						</Route>
 					</Switch>
 				</div>
