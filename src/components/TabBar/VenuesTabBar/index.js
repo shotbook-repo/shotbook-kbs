@@ -3,10 +3,14 @@ import SearchField from '../../SearchField';
 import Modal from 'react-modal';
 import { Switch } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import {
+	faTimesCircle,
+	faCalendarAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import './venuestabbar.css';
 import 'antd/lib/switch/style/index.css';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 Modal.setAppElement('#root');
 const customStyles = {
@@ -28,13 +32,6 @@ const customStyles = {
 const VenuesTabBar = () => {
 	// const dispatch = useDispatch();
 	const [modalIsOpen, setModalIsOpen] = useState(false);
-	// const [isMondayOpen, setIsMondayOpen] = useState(false);
-	// const [isTuesdayOpen, setIsTuesdayOpen] = useState(false);
-	// const [isWednesdayOpen, setIsWednesdayOpen] = useState(false);
-	// const [isThursdayOpen, setIsThursdayOpen] = useState(false);
-	// const [isFridayOpen, setIsFridayOpen] = useState(false);
-	// const [isSaturdayOpen, setIsSaturdayOpen] = useState(false);
-	// const [isSundayOpen, setIsSundayOpen] = useState(false);
 	const [formState, setFormState] = useState({
 		venueName: '',
 		employeeNo: '',
@@ -93,12 +90,21 @@ const VenuesTabBar = () => {
 	return (
 		<>
 			<div className='flex flex-row justify-between border-2 shadow-md rounded-md align-middle p-2 mt-5'>
-				<button
-					className='medium-button mr-24'
-					onClick={() => setModalIsOpen(true)}
-				>
-					Add New Venue
-				</button>
+				<div className='flex space-x-4 items-center'>
+					<button
+						className='medium-button'
+						onClick={() => setModalIsOpen(true)}
+					>
+						Add New Venue
+					</button>
+					<Link to='/calendar'>
+						<FontAwesomeIcon
+							icon={faCalendarAlt}
+							color='#303e58'
+							size='2x'
+						/>
+					</Link>
+				</div>
 				<SearchField />
 
 				{/* ADD FACILITY MODAL */}

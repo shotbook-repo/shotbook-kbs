@@ -18,7 +18,7 @@ import { useFetch } from '../../components/CustomHooks/useFetch';
 // 	}).then((res) => res.json());
 
 const FacilitiesPage = () => {
-	const [title, setTitle] = useState('Facilities Management');
+	const [title, setTitle] = useState('KBS Facilities');
 	const url = `${config.API_URL}/getVenues`;
 	const [requestBody, setRequestBody] = useState({
 		flag: 'all',
@@ -50,7 +50,7 @@ const FacilitiesPage = () => {
 				<TitleBar title={title} />
 				<VenuesTabBar />
 				<div className='flex justify-end mt-4'>
-					<p className='column-title mr-auto ml-7'>KBS Venues</p>
+					<p className='mr-auto ml-7 text-white'>KBS Venues</p>
 					<p className='column-title mr-40'>No of Employees</p>
 					<p className='column-title mr-40'>Status</p>
 				</div>
