@@ -9,7 +9,7 @@ import MaintenanceRequestSection from '../MaintenanceRequestSection';
 import InventorySection from '../InventorySection';
 import PlannedMaintenanceSection from '../PlannedMaintenanceSection';
 import ReportSection from '../ReportsSection';
-import equipmentsection from '../EquipmentSection';
+import EquipmentSection from '../EquipmentSection';
 import { useFetch } from '../../../components/CustomHooks/useFetch';
 import EmployeeSection from '../EmployeeSection';
 
@@ -98,8 +98,8 @@ const FacilityListingPage = () => {
 				)}
 				{sectionFlags.maint_req && <MaintenanceRequestSection />}
 				{sectionFlags.plan_req && <PlannedMaintenanceSection />}
-				{sectionFlags.equipment && <equipmentsection />}
-				{sectionFlags.inventory && <InventorySection />}
+				{sectionFlags.equipment && <EquipmentSection venue={id} />}
+				{sectionFlags.inventory && <InventorySection venue={id} />}
 				{sectionFlags.employee && <EmployeeSection venue={id} />}
 				{sectionFlags.report && <ReportSection />}
 			</div>

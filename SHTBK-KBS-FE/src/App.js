@@ -56,7 +56,7 @@ function App() {
 						<Route path='/login'>
 							<LoginPage />
 						</Route>
-						<Route path='/calendar'>
+						<Route path='/calendar/:type'>
 							<CalendarPage />
 						</Route>
 					</Switch>

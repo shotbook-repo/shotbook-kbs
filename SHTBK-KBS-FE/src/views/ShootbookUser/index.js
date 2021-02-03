@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useFetch } from '../../components/CustomHooks/useFetch';
 import config from '../../../src/configs/config.json';
 import TitleBar from '../../components/TitleBar';
-import MaterialTable, { MTablePagination } from 'material-table';
+import MaterialTable from 'material-table';
 import moment from 'moment';
 import './shotbookuserpage.css';
 

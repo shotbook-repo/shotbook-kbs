@@ -97,7 +97,7 @@ const VenuesTabBar = () => {
 					>
 						Add New Venue
 					</button>
-					<Link to='/calendar'>
+					<Link to='/calendar/facility'>
 						<FontAwesomeIcon
 							icon={faCalendarAlt}
 							color='#303e58'
