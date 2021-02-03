@@ -41,6 +41,11 @@ app.post('/getUsers', async (req, res) => {
 				rawString += 'FROM kbs.users ';
 				rawString += 'WHERE venue_id = ' + req.body.venue_id;
 				break;
+			case 'admins':
+				rawString += 'SELECT * ';
+				rawString += 'FROM kbs.users ';
+				rawString += 'WHERE user_type_id IN (1,2)';
+				break;
 			case 'shotbook_users':
 				rawString += 'SELECT * ';
 				rawString += 'FROM kbs.users ';
@@ -110,6 +115,53 @@ app.post('/getFacilities', async (req, res) => {
 	}
 });
 
+app.post('/getEquipmentInventory', async (req, res) => {
+	let response;
+	let rawString = '';
+
+	try {
+		//	DESTRUCTURE REQUEST BODY
+		let { type, venue_id } = req.body;
+
+		switch (type) {
+			case 'Equipment':
+				rawString += 'SELECT * FROM kbs.facilities ';
+				rawString += `WHERE type='Equipment' `;
+				rawString += `AND venue_id=${venue_id}`;
+				break;
+			case 'Inventory':
+				rawString += 'SELECT * FROM kbs.facilities ';
+				rawString += `WHERE type='Inventory' `;
+				rawString += `AND venue_id=${venue_id}`;
+				break;
+			default:
+				break;
+		}
+
+		//	EXECUTE QUERIES ON DB
+		let getData = await dbconnection.query(rawString);
+
+		console.log(rawString);
+
+		response = {
+			statusCode: 200,
+			message: 'Successful',
+			data: getData.rows,
+		};
+
+		return res.json(response);
+	} catch (err) {
+		response = {
+			statusCode: 500,
+			message: 'Error',
+			transaction: 'GET EQUIPMENTS/INVENTORIES',
+			data: req.body,
+		};
+		console.error(err.message);
+		return res.json(response);
+	}
+});
+
 app.post('/getAllFacilities', async (req, res) => {
 	let response;
 	let rawStringFacilities = '';
@@ -150,6 +202,43 @@ app.post('/getAllFacilities', async (req, res) => {
 			statusCode: 500,
 			message: 'Error',
 			transaction: 'GET ALL FACILITIES',
+			data: req.body,
+		};
+		console.error(err.message);
+		return res.json(response);
+	}
+});
+
+app.post('/getMerchants', async (req, res) => {
+	let response;
+	let rawString = '';
+
+	try {
+		let { flag } = req.body;
+
+		switch (flag) {
+			case 'all':
+				rawString += 'SELECT * ';
+				rawString += 'FROM kbs.merchants ';
+				break;
+			default:
+				break;
+		}
+
+		let merchants = await dbconnection.query(rawString);
+
+		response = {
+			statusCode: 200,
+			message: 'Successful',
+			data: merchants.rows,
+		};
+
+		return res.json(response);
+	} catch (err) {
+		response = {
+			statusCode: 500,
+			message: 'Error',
+			transaction: 'GET MERCHANTS',
 			data: req.body,
 		};
 		console.error(err.message);
@@ -207,6 +296,9 @@ app.post('/getEvents', async (req, res) => {
 			rawString += 'SELECT * ';
 			rawString += 'FROM kbs.events ';
 			rawString += 'WHERE EXTRACT(MONTH FROM start_date) = ' + month;
+		} else if (flag === 'all') {
+			rawString += 'SELECT * ';
+			rawString += 'FROM kbs.events ';
 		}
 
 		//	EXECUTE QUERIES ON DB
@@ -405,13 +497,12 @@ app.post('/insertfacility', async (req, res) => {
 				'kbs.facilities("type", "name", category, location_at_venue, manufacturer, model, serial_no, quantity, sport_id, venue_id) ';
 			rawStringFacility += `VALUES('${facilityType}', '${facilityName}', '${category}', '${location_at_venue}', '${manufacturer}', '${model}', '${serial_no}', ${quantity}, ${null}, ${venue_id}`;
 			rawStringFacility += ')';
-
-			console.log('Raw String: ', rawStringFacility);
 		}
 
 		//	EXECUTE QUERIES ON DB
 		let facility = await dbconnection.query(rawStringFacility);
 
+		console.log('Raw String: ', rawStringFacility);
 		response = {
 			statusCode: 200,
 			message: 'Successful',
